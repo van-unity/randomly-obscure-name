@@ -17,6 +17,9 @@ namespace RON.Scripts {
                 return;
             }
 
+            _backgroundAudioSource.clip = _config.BackgroundMusic;
+            _backgroundAudioSource.Play();
+            
             _board = context.Board;
 
             _board.TileClicked += BoardOnTileClicked;
