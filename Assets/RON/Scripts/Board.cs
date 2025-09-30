@@ -16,6 +16,7 @@ namespace RON.Scripts {
 
         private List<BoardPosition> _selection;
         private HashSet<BoardPosition> _busy;
+        private bool _canPlay;
 
         public event Action<TurnCompleteEventArgs> TurnComplete;
         public event Action BoardCleared;
@@ -67,12 +68,17 @@ namespace RON.Scripts {
                 .AppendInterval(0.5f)
                 .Append(revealSequence)
                 .AppendInterval(3)
-                .Append(hideSequence);
+                .Append(hideSequence)
+                .OnComplete(() => { _canPlay = true; });
 
             _inputManager.Clicked += OnClick;
         }
 
         private void OnClick(Vector3 clickPos) {
+            if (!_canPlay) {
+                return;
+            }
+
             if (!_tileContainer.TryGetBoardPosition(clickPos, out var boardPosition)) {
                 return;
             }
@@ -80,7 +86,7 @@ namespace RON.Scripts {
             if (!TryMarkBusy(boardPosition)) {
                 return;
             }
-            
+
             TileClicked?.Invoke();
 
             _selection.Add(boardPosition);
