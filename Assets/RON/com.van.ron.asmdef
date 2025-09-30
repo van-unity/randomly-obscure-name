@@ -1,7 +1,9 @@
 {
     "name": "com.van.rom",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:b59069cdbfab946bfbc0b3ba71b8c2e6"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
