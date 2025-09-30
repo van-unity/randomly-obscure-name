@@ -1,10 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using DG.Tweening;
-using UnityEditor;
 using UnityEngine;
 
 namespace RON.Scripts {
@@ -22,6 +19,7 @@ namespace RON.Scripts {
 
         public event Action<TurnCompleteEventArgs> TurnComplete;
         public event Action BoardCleared;
+        public event Action TileClicked;
 
         private void Start() {
             _busy = new HashSet<BoardPosition>();
@@ -82,6 +80,8 @@ namespace RON.Scripts {
             if (!TryMarkBusy(boardPosition)) {
                 return;
             }
+            
+            TileClicked?.Invoke();
 
             _selection.Add(boardPosition);
             if (_selection.Count == _levelConfiguration.MatchCount) {

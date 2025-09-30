@@ -12,6 +12,7 @@ namespace RON.Scripts {
 
         [field: SerializeField] public InputManager InputManager { get; private set; }
         [field: SerializeField] public Board Board { get; private set; }
+        [field: SerializeField] public SoundPlayer SoundPlayer { get; private set; }
 
         public TileContainerFactory TileContainerFactory { get; private set; }
         public TilePool TilePool { get; private set; }
