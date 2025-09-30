@@ -13,6 +13,7 @@ namespace RON.Scripts {
         [SerializeField] private int _punchVibrato = 6;
         [SerializeField] private Ease _punchEase = Ease.OutQuad;
         [SerializeField] private float _matchDuration = .2f;
+        [SerializeField] private Ease _matchScaleEase = Ease.OutQuad;
 
         private Transform _transform;
 
@@ -59,7 +60,7 @@ namespace RON.Scripts {
         public Sequence Match() {
             this.DOKill();
             return DOTween.Sequence()
-                .Join(_transform.DOScale(Vector3.zero, _matchDuration))
+                .Join(_transform.DOScale(Vector3.zero, _matchDuration).SetEase(_matchScaleEase))
                 .SetTarget(this);
         }
 
