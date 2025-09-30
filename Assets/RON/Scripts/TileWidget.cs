@@ -12,6 +12,7 @@ namespace RON.Scripts {
         [SerializeField] private Vector3 _punch = new Vector3(-0.2f, -0.2f, 0);
         [SerializeField] private int _punchVibrato = 6;
         [SerializeField] private Ease _punchEase = Ease.OutQuad;
+        [SerializeField] private float _matchDuration = .2f;
 
         private Transform _transform;
 
@@ -52,6 +53,13 @@ namespace RON.Scripts {
             return DOTween.Sequence()
                 .Join(rotationTween)
                 .Join(punchTween)
+                .SetTarget(this);
+        }
+
+        public Sequence Match() {
+            this.DOKill();
+            return DOTween.Sequence()
+                .Join(_transform.DOScale(Vector3.zero, _matchDuration))
                 .SetTarget(this);
         }
 

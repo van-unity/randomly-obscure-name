@@ -132,6 +132,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tileRenderer: {fileID: 5625449991790496418}
+  _revealDuration: 0.3
+  _rotationEase: 7
+  _punch: {x: -0.15, y: -0.15, z: 0}
+  _punchVibrato: 6
+  _punchEase: 6
+  _matchDuration: 0.2
 --- !u!1 &5625449991280960750
 GameObject:
   m_ObjectHideFlags: 0

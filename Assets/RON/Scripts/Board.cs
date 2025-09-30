@@ -116,13 +116,19 @@ namespace RON.Scripts {
                 }
 
                 tiles.Last().Reveal().OnComplete(() => {
+                    var matchSequence = DOTween.Sequence();
                     foreach (var tileWidget in tiles) {
-                        _tilePool.Return(tileWidget);
+                        matchSequence.Join(tileWidget.Match());
                     }
 
-                    if (IsBoardCleared()) {
-                        BoardCleared?.Invoke();
-                    }
+                    matchSequence.OnComplete(() => {
+                        foreach (var tileWidget in tiles) {
+                            _tilePool.Return(tileWidget);
+                            if (IsBoardCleared()) {
+                                BoardCleared?.Invoke();
+                            }
+                        }
+                    });
                 });
             } else {
                 TurnComplete?.Invoke(new TurnCompleteEventArgs(false));
