@@ -11,7 +11,7 @@ namespace RON.Scripts {
 
         private int _nextIndex;
         private bool _isDisposed;
-        
+
         public Rect WorldRect => _layout.worldRect;
 
         public TileContainer(Camera camera, BoardLayoutConfiguration config, int columns, int rows, Bounds tileBounds) {
@@ -54,26 +54,39 @@ namespace RON.Scripts {
             PlaceAndScale(tileTransform, column, row);
         }
 
-        public bool TryGetBoardPosition(Vector3 clickPos, out BoardPosition boardPosition) {
-            if (!_layout.contentRect.Contains(clickPos)) {
+        public bool TryGetBoardPosition(Vector3 worldPos, out BoardPosition boardPosition) {
+            if (!_layout.contentRect.Contains(worldPos)) {
                 boardPosition = default;
                 return false;
             }
 
-            var localX = clickPos.x - _layout.startX;
-            var localY = clickPos.y - _layout.startY;
+            var stepX = _layout.cellW + _layout.spacingX;
+            var stepY = _layout.cellH + _layout.spacingY;
 
-            var col = Mathf.FloorToInt(localX / (_layout.cellW + _layout.spacingX));
-            var row = Mathf.RoundToInt(localY / (_layout.cellH + _layout.spacingY));
+            var localX = worldPos.x - _layout.startX;
+            var localY = worldPos.y - _layout.startY;
 
-            if (col < 0 || col >= _columns || row < 0 || row >= _rows) {
+            var col = Mathf.FloorToInt(localX / stepX);
+            var rowFromBottom = Mathf.FloorToInt(localY / stepY); // <- use Floor, not Round
+
+            // Reject clicks that fall into the spacing gap between cells
+            var inCellX = localX - col * stepX;
+            var inCellY = localY - rowFromBottom * stepY;
+            if (inCellX > _layout.cellW || inCellY > _layout.cellH) {
                 boardPosition = default;
                 return false;
             }
 
-            boardPosition = new BoardPosition(col, row);
+            // Safety clamp (shouldn't hit if gridRect.Contains passed)
+            if (col < 0 || col >= _columns || rowFromBottom < 0 || rowFromBottom >= _rows) {
+                boardPosition = default;
+                return false;
+            }
+            
+            boardPosition = new BoardPosition(col, rowFromBottom);
             return true;
         }
+
 
         private void PlaceAndScale(Transform tile, int col, int row) {
             tile.SetParent(_container, true);

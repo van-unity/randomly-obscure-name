@@ -14,8 +14,13 @@ namespace RON.Scripts {
 
         [field: SerializeField]
         [field: Range(MIN_SIZE, MAX_SIZE)]
-        public int Size { get; private set; } = MIN_SIZE;
+        public int Columns { get; private set; } = MIN_SIZE;
 
+        [field: SerializeField]
+        [field: Range(MIN_SIZE, MAX_SIZE)]
+        public int Rows { get; private set; } = MIN_SIZE;
+
+        [Tooltip("How many identical tiles user need to select")]
         [field: SerializeField]
         [field: Range(MIN_MATCH, MAX_MATCH)]
         public int MatchCount { get; private set; } = MIN_MATCH;
@@ -29,11 +34,11 @@ namespace RON.Scripts {
             msg.AppendLine($"[{nameof(LevelConfiguration)}] Validation for \"{name}\":");
 
             // Clamp Size
-            int clampedSize = Mathf.Clamp(Size, MIN_SIZE, MAX_SIZE);
-            if (clampedSize != Size) {
+            int clampedSize = Mathf.Clamp(Columns, MIN_SIZE, MAX_SIZE);
+            if (clampedSize != Columns) {
                 hadIssue = true;
-                msg.AppendLine($"- Size {Size} out of range [{MIN_SIZE}..{MAX_SIZE}] → clamped to {clampedSize}.");
-                Size = clampedSize;
+                msg.AppendLine($"- Size {Columns} out of range [{MIN_SIZE}..{MAX_SIZE}] → clamped to {clampedSize}.");
+                Columns = clampedSize;
             }
 
             // MatchCount range: [MIN_MATCH, MAX_MATCH_EXCLUSIVE)
@@ -78,9 +83,9 @@ namespace RON.Scripts {
             var ok = true;
             var sb = new StringBuilder();
 
-            if (Size < MIN_SIZE || Size > MAX_SIZE) {
+            if (Columns < MIN_SIZE || Columns > MAX_SIZE) {
                 ok = false;
-                sb.AppendLine($"Size must be in [{MIN_SIZE}..{MAX_SIZE}] (was {Size}).");
+                sb.AppendLine($"Size must be in [{MIN_SIZE}..{MAX_SIZE}] (was {Columns}).");
             }
 
             if (MatchCount < MIN_MATCH || MatchCount >= MAX_MATCH) {

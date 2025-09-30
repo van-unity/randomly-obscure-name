@@ -18,5 +18,5 @@ MonoBehaviour:
   <PaddingRight>k__BackingField: 0
   <PaddingTop>k__BackingField: 0
   <PaddingBottom>k__BackingField: 0
-  <SpacingX>k__BackingField: 1
-  <SpacingY>k__BackingField: 1
+  <SpacingX>k__BackingField: 0.1
+  <SpacingY>k__BackingField: 0.1

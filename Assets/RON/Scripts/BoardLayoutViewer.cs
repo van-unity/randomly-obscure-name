@@ -7,7 +7,7 @@ namespace RON.Scripts {
         public Color _faceColor = Color.green;
         public Color _outlineColor = Color.red;
 
-        private void OnDrawGizmos() {
+        private void OnDrawGizmosSelected() {
             if (_config == null) {
                 return;
             }

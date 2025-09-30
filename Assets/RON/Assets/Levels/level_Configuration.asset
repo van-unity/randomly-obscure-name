@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f2cab63bf754714a94f153adbaa3d44, type: 3}
   m_Name: level_Configuration
   m_EditorClassIdentifier: 
-  <Size>k__BackingField: 2
+  <Columns>k__BackingField: 4
+  <Rows>k__BackingField: 4
   <MatchCount>k__BackingField: 2
-  <Sprites>k__BackingField: []
+  <Sprites>k__BackingField:
+  - {fileID: -434535774, guid: 66d316338e66d40b4946abbad8bcc926, type: 3}
+  - {fileID: 814096894, guid: 66d316338e66d40b4946abbad8bcc926, type: 3}
+  - {fileID: -990207318, guid: 66d316338e66d40b4946abbad8bcc926, type: 3}
+  - {fileID: -60742095, guid: 66d316338e66d40b4946abbad8bcc926, type: 3}
